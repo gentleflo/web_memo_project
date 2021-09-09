@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+#wrap {
+	width: 1200px;
+	margin: auto;
+}
+
+header {
+	height: 70px; 
+}
+
+.content {
+	height: 400px; 
+}
+
+.login-box {
+	width: 400px;
+}
+
+.signup-box {
+	width: 400px;
+}
+
+footer {
+	height: 50px;
+}
