@@ -12,7 +12,7 @@
  			, `name`
  			, `email`
  			, `createdAt`
- 			, `updateAt`
+ 			, `updatedAt`
  		) VALUES (
  			#{loginId}
  			, #{password}

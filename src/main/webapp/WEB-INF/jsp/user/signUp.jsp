@@ -44,7 +44,7 @@
 			
 			var loginId = $("#loginIdInput").val();
 			var password = $("#passwordInput").val();
-			var passwordConfirm = $("passwordConfirmInput").val();
+			var passwordConfirm = $("#passwordConfirmInput").val();
 			var name = $("#nameInput").val();
 			var email = $("#emailInput").val();
 			
@@ -60,10 +60,10 @@
 			
 			if(passwordConfirm == null || passwordConfirm == "") {
 				alert("비밀번호 확인을 입력하세요");
-				return;
+				return
 			}
 			
-			if(!password == passwordConfirm) {
+			if(password != passwordConfirm) {
 				alert("비밀번호가 일치하지 않습니다");
 				return;
 			}
