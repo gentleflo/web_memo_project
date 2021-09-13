@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,29 +17,86 @@
 </head>
 <body>
 	<div id="wrap">
-		<header class="bg-secondary text-light">
-			<h1 class="ml-3 pt-2">Memo</h1>
-		</header>
+		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		
 		<section class="content d-flex justify-content-center align-items-center">
 			<div class="signup-box">
 				<h2>회원가입</h2>
-				<form>
-					<input type="text" class="form-control" placeholder="Username">
-					<input type="password" class="form-control mt-2" placeholder="....">
-					<input type="text" class="form-control mt-2" placeholder="비밀번호 확인">
-					<input type="text" class="form-control mt-2" placeholder="이름">
-					<input type="text" class="form-control mt-2" placeholder="이메일 주소">
+				<form id="signupForm">
+					<input type="text" id="loginIdInput" class="form-control" placeholder="Username">
+					<input type="password" id="passwordInput" class="form-control mt-2" placeholder="....">
+					<input type="password" id="passwordConfirmInput" class="form-control mt-2" placeholder="비밀번호 확인">
+					<input type="text" id="nameInput" class="form-control mt-2" placeholder="이름">
+					<input type="text" id="emailInput" class="form-control mt-2" placeholder="이메일 주소">
 					<input type="submit" class="btn btn-info btn-block mt-2" value="가입">
 				</form>
-				
 			</div>
 		</section>
 		
-		<footer class="bg-secondary text-center text-light">
-			<span>Copyright 2018. memo all rights reserved.</span>
-		</footer>
+		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
 
+
+	<script>
+	$(document).ready(function(){
+		$("#signupForm").on("submit", function(e){
+			e.preventDefault();   // 이벤트가 가지고 있는 특수한 기능들을 싹 없애주는것 cf) e는 그냥 정해준것 event의 약자
+			
+			var loginId = $("#loginIdInput").val();
+			var password = $("#passwordInput").val();
+			var passwordConfirm = $("passwordConfirmInput").val();
+			var name = $("#nameInput").val();
+			var email = $("#emailInput").val();
+			
+			if(loginId == null || loginId == "") {
+				alert("아이디를 입력하세요");
+				return;
+			}
+			
+			if(password == null || password == "") {
+				alert("비밀번호를 입력하세요");
+				return;
+			}
+			
+			if(passwordConfirm == null || passwordConfirm == "") {
+				alert("비밀번호 확인을 입력하세요");
+				return;
+			}
+			
+			if(!password == passwordConfirm) {
+				alert("비밀번호가 일치하지 않습니다");
+				return;
+			}
+			
+			if(name == null || name == "") {
+				alert("이름을 입력하세요");
+				return;
+			}
+			
+			if(email == null || email == "") {
+				alert("이메일을 입력하세요");
+				return;
+			}
+			
+			
+			$.ajax ({
+				type:"post",
+				url:"/user/sign_up",
+				data:{"loginId":loginId, "password":password, "name":name, "email":email},
+				success:function(data) {
+					if(data.result == "success") {
+						location.href="/user/signin_view";
+					} else {
+						alert("회원가입 실패");
+					}
+				}, error:function(e) {
+					alert("error");
+				}
+			})
+			
+		});
+	});
+	
+	</script>
 </body>
 </html>
