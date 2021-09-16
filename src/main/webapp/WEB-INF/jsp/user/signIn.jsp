@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,19 +22,58 @@
 		<section class="content d-flex justify-content-center align-items-center">
 			<div class="login-box">
 				<h2 class="text-center">로그인</h2>
-				<form>
-					<input type="text" class="form-control" placeholder="아이디를 입력하세요">
-					<input type="password" class="form-control mt-3" placeholder="비밀번호를 입력하세요">
+				<form id="loginForm">
+					<input type="text" class="form-control" id="loginIdInput" placeholder="아이디를 입력하세요">
+					<input type="password" class="form-control mt-3" id="passwordInput" placeholder="비밀번호를 입력하세요">
 					<input type="submit" class="btn btn-info btn-block mt-3" value="로그인">
 				</form>
 				<div class="text-right mt-2">
-					<a href="/user/signup-view">회원가입</a>
+					<a href="/user/signup_view">회원가입</a>
 				</div>
 			</div>
 		</section>
 		
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
-
+	
+	
+	<script>
+	$(document).ready(function(){
+		$("#loginForm").on("submit", function(e){
+			
+			e.preventDefault();   // submit은 필수
+			
+			var loginId = $("#loginIdInput").val();
+			var password = $("#passwordInput").val();
+			
+			if(loginId == null || loginId == "") {
+				alert("아이디를 입력해주세요");
+				return;
+			}
+			
+			if(password == null || password == "") {
+				alert("비밀번호를 입력해주세요");
+				return;
+			}
+			
+			$.ajax({
+				type:"post",
+				url:"/user/sign_in",
+				data:{"loginId":loginId, "password":password},
+				success:function(data) {
+					if(data.result == "success") {
+						alert("로그인 성공");
+					} else {
+						alert("아이디 비밀번호를 확인해주세요");
+					}
+				},
+				error:function(e) {
+					alert("error");
+				}
+			});
+		});
+	});
+	
+	</script>
 </body>
 </html>

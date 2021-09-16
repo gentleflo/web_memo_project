@@ -1,5 +1,8 @@
 package com.gentleflo.memo.user;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,5 +19,16 @@ public class UserController {
 	@GetMapping("/signup_view")
 	public String signupView() {
 		return "user/signUp";
+	}
+	
+	// 로그아웃
+	@GetMapping("/sign_out")
+	public String signOut(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("userLoginId"); // 로그아웃을 위해 session 삭제
+		session.removeAttribute("userName");
+		
+		return "redirect:/user/signin_view";
 	}
 }

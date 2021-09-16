@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gentleflo.memo.post.bo.PostBO;
 
@@ -25,13 +26,14 @@ public class PostRestController {
 	public Map<String, String> create(
 			@RequestParam("subject") String subject
 			, @RequestParam("content") String content
+			, @RequestParam("file") MultipartFile file
 			, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		session.getAttribute("userId");      //getAttribute의 리턴 타입은 Object임 그래서 타입을 맞추는 캐스팅이 필요
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postBO.addPost(userId, subject, content);
+		int count = postBO.addPost(userId, subject, content, file);
 		
 		Map<String, String> result = new HashMap<>();
 		if(count == 1) {

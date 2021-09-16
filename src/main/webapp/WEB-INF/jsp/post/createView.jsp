@@ -27,7 +27,9 @@
 					<input type="text" class="form-control col-11 ml-2" id="titleInput">
 				</div> 
 				<textarea rows="5" class="form-control my-2" id="contentInput"></textarea>
-				<input type="file">
+				<!-- MIME: text/html image/jpeg -->
+				<!-- 파일 여러개 올리고 싶으면 input 안에 multiple 쓰면 됨 -->
+				<input type="file" accept="image/*" id="fileInput">
 				<div class="d-flex justify-content-between my-2">
 					<button type="button" class="btn btn-info">목록으로</button>
 					<button type="button" class="btn btn-success" id="saveBtn">저장</button>
@@ -54,10 +56,19 @@
 					return;
 				}
 				
+				var formData = new FormData();  // javascript내부에 있는 클래스 FormData
+				formData.append("subject", title);
+				formData.append("content", content);
+				formData.append("file", $("#fileInput")[0].files[0]); // files[0] -> 일단 파일 하나 가져오는거 처리하기 위해서 0번째 인덱스 가져오기
+				
+				
 				$.ajax({
+					enctype:"multipart/form-data", // 파일 업로드 필수, enctype:인코딩 타입
+					processData:false,  // 원래는 기본 설정이 true인데.. 파일 업로드 필수 
+					contentType:false,  // 파일 업로드 필수 
 					type:"post",
 					url:"/post/create",
-					data:{"subject":title, "content":content},
+					data:formData,  // {"subject":title, "content":content} -> 문자열 상태 전달만 가능한것 파일은 불가능
 					success:function(data) {
 						if(data.result == "success") {
 							alert("삽입 성공");

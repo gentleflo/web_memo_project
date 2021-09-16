@@ -11,12 +11,14 @@
  			`userId`
  			, `subject`
  			, `content`
+ 			, `imagePath`
  			, `createdAt`
  			, `updatedAt`
  		) VALUES (
  			#{userId}
  			, #{subject}
  			, #{content}
+ 			, #{imagePath}
  			, now()
  			, now() 
  		)

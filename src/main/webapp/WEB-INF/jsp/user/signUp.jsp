@@ -23,8 +23,8 @@
 			<div class="signup-box">
 				<h2>회원가입</h2>
 				<form id="signupForm">
-					<input type="text" id="loginIdInput" class="form-control" placeholder="Username">
-					<input type="password" id="passwordInput" class="form-control mt-2" placeholder="....">
+					<input type="text" id="loginIdInput" class="form-control" placeholder="아이디">
+					<input type="password" id="passwordInput" class="form-control mt-2" placeholder="비밀번호">
 					<input type="password" id="passwordConfirmInput" class="form-control mt-2" placeholder="비밀번호 확인">
 					<input type="text" id="nameInput" class="form-control mt-2" placeholder="이름">
 					<input type="text" id="emailInput" class="form-control mt-2" placeholder="이메일 주소">
