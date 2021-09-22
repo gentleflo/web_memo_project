@@ -31,7 +31,7 @@
 				<!-- 파일 여러개 올리고 싶으면 input 안에 multiple 쓰면 됨 -->
 				<input type="file" accept="image/*" id="fileInput">
 				<div class="d-flex justify-content-between my-2">
-					<button type="button" class="btn btn-info">목록으로</button>
+					<a href="/post/list_view" class="btn btn-info">목록으로</a>
 					<button type="button" class="btn btn-success" id="saveBtn">저장</button>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 					data:formData,  // {"subject":title, "content":content} -> 문자열 상태 전달만 가능한것 파일은 불가능
 					success:function(data) {
 						if(data.result == "success") {
-							alert("삽입 성공");
+							location.href="/post/list_view";
 						} else {
 							alert("삽입 실패");
 						}

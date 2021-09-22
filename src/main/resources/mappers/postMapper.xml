@@ -17,11 +17,43 @@
  		) VALUES (
  			#{userId}
  			, #{subject}
- 			, #{content}
+ 			, #{content} 
  			, #{imagePath}
  			, now()
  			, now() 
  		)
-
  	</insert>
+ 	
+ 	<select id="selectMemoList" resultType="com.gentleflo.memo.post.model.Post" parameterType="int">
+ 		SELECT 
+ 			`id`
+ 			,`userId`
+ 			, `subject`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`post`
+ 		WHERE 
+ 			`userId` = #{userId }
+ 		ORDER BY 
+ 			`id` DESC
+ 	</select>
+ 	
+ 	<select id ="selectMemo" resultType="com.gentleflo.memo.post.model.Post" parameterType="map">
+ 		SELECT 
+ 			`id`
+ 			,`userId`
+ 			, `subject`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`post`
+ 		WHERE 
+ 			`id` = #{id }
+ 			AND `userId` = #{userId }
+ 	</select>
  </mapper>

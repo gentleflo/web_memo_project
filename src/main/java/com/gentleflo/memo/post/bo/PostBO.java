@@ -1,11 +1,14 @@
 package com.gentleflo.memo.post.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gentleflo.memo.common.FileManagerService;
 import com.gentleflo.memo.post.dao.PostDAO;
+import com.gentleflo.memo.post.model.Post;
 
 @Service
 public class PostBO {
@@ -26,6 +29,13 @@ public class PostBO {
 
 		return postDAO.insertPost(userId, subject, content, imagePath);
 	}
-	
 	// 복잡한건 controller보다 bo에서 처리하는 것이 좋음 그리고 따로 클래스로 만들어서 사용하는 것이 좋다~!
+	
+	public List<Post> getMemoList(int userId) {
+		return postDAO.selectMemoList(userId);
+	}
+	
+	public Post getMemo(int id, int userId) {
+		return postDAO.selectMemo(id, userId);
+	}
 }
