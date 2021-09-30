@@ -56,4 +56,23 @@
  			`id` = #{id }
  			AND `userId` = #{userId }
  	</select>
+ 	
+ 	<delete id="deleteMemo" parameterType="int">
+ 		DELETE FROM
+ 			`post`
+ 		WHERE
+ 			`id` = #{id }
+ 			AND `userId` = #{userId }   <!-- 로그인 사용자만 삭제가 가능하도록 조건 추가 -->
+ 	</delete>
+ 	
+ 	<update id="updateMemo" parameterType="map">
+ 		UPDATE 
+ 			`post`
+ 		SET 
+ 			`subject` = #{subject }
+ 			, `content` = #{content }
+ 		WHERE 
+ 			`id` = #{id }
+ 			AND `userId` = #{userId }	
+ 	</update>
  </mapper>

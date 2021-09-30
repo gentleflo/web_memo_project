@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagerService {
 	
-	public final static String FILE_UPLOAD_PATH = "C:\\Users\\LEE\\Desktop\\springTest\\upload\\images/";
+	public final static String FILE_UPLOAD_PATH = "D:\\이나은\\memo_upload/";
 	// 대문자로 변수 이름을 만들어준것은 -> 수정될 일도 없고 수정되어서도 않되는 변수이기 때문에~! -> final
 	public static String saveFile(int userId, MultipartFile file) {  
 		// 파일 경로
@@ -55,7 +55,34 @@ public class FileManagerService {
 		// <img src= " ">  " " 안에 들어갈 경로를 만들어 주는 것!
 		// 밑에 "/images/" -> 이건 그냥 정해주는것!
 		return "/images/" + directoryName + file.getOriginalFilename();
-				
+	}
 	
+	public static void removeFile(String filePath) {
+		// filePath
+		// post 테이블에 있는 imagePath
+		// ex> /images/01-293824899/test.png   --> 접근하기 위한 경로 (실제 파일 경로 아님)
+		// 실제 경로 ex> D:\\이나은\\memo_upload\images\01-293824899\test.png
+		
+		String realFilePath = FILE_UPLOAD_PATH + filePath.replace("/images/", "");
+		
+		Path path = Paths.get(realFilePath); // path는 파일경로를 좀 더 다루기 쉽게 해놓은 클래스임
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} 
+		
+		// 디렉토리(폴더) 삭제
+		path = path.getParent();
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

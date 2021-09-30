@@ -31,11 +31,28 @@ public class PostBO {
 	}
 	// 복잡한건 controller보다 bo에서 처리하는 것이 좋음 그리고 따로 클래스로 만들어서 사용하는 것이 좋다~!
 	
+	
 	public List<Post> getMemoList(int userId) {
 		return postDAO.selectMemoList(userId);
 	}
 	
+	
 	public Post getMemo(int id, int userId) {
 		return postDAO.selectMemo(id, userId);
+	}
+	
+	
+	// 메모 삭제
+	public int deleteMemo(int id, int userId) { 
+		Post post = this.getMemo(id, userId);
+		if(post.getImagePath() != null) {
+			FileManagerService.removeFile(post.getImagePath());
+		}
+		return postDAO.deleteMemo(id, userId);
+	}
+	
+	// 메모 업데이트
+	public int updateMemo(int id, String subject, String content, int userId) {
+		return postDAO.updateMemo(id, subject, content, userId);
 	}
 }
