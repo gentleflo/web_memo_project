@@ -27,6 +27,7 @@ public class UserController {
 		HttpSession session = request.getSession();
 		
 		session.removeAttribute("userLoginId"); // 로그아웃을 위해 session 삭제
+		session.removeAttribute("userId");
 		session.removeAttribute("userName");
 		
 		return "redirect:/user/signin_view";
